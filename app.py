@@ -29,8 +29,7 @@ st.sidebar.image("assets/avatar_open_to_work.png", caption="Sébastien MARTINET"
 # Load dataset
 # -----------------------------
 # st.title("Astrophysics Abstract Search")
-st.title("NLP Semantic Search")
-st.text("Astrophysics abstracts demo")
+st.title("NLP Semantic Search | Astrophysics abstracts")
 data, texts = load_abstracts()
 
 # -----------------------------
