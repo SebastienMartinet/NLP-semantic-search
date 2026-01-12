@@ -1,1 +1,0 @@
-export ADS_API_TOKEN="zvJp5MKYIxzAkdxhmw1yuWauqbhcAj8T8sZHFfuM"
