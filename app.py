@@ -106,7 +106,8 @@ def cluster_keywords(texts, top_n=3, exclude_words=None):
         exclude_words = {
             "sub", "sup", "frac", "cdot",
             "sub sub", "sup sup", "gt", "lt",
-            "mathrm", "mathit", "alpha", "beta","pdf","http","href"
+            "mathrm", "mathit", "alpha", "beta","pdf","http","href",
+            "loc", "loc post", "post"
         }
 
     vectorizer = CountVectorizer(
