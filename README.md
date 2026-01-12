@@ -1,3 +1,3 @@
 https://nlp-semantic-search.streamlit.app/
 
-Designed and deployed a semantic search engine for astrophysics abstracts using TF-IDF, sentence transformers (BERT/SPECTER), and a hybrid relevance–impact ranking. Implemented explainability (term-level and sentence-level), clustering analysis, and interactive network visualizations in a Streamlit application.
+Semantic search engine for astrophysics abstracts using TF-IDF, sentence transformers (BERT/SPECTER), and a hybrid relevance–impact ranking. Implemented explainability (term-level and sentence-level), clustering analysis, and interactive network visualizations in a Streamlit application.
