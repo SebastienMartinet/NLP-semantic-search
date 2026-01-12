@@ -26,6 +26,11 @@ st.set_page_config(
 st.title("Astrophysics Abstract Search")
 data, texts = load_abstracts()
 
+from PIL import Image
+# Load image
+# Display in sidebar
+st.sidebar.image("assets/avatar_open_to_work.png", caption="Sébastien MARTINET", use_container_width=True)
+
 # -----------------------------
 # Sidebar: select retrieval method
 # -----------------------------
@@ -688,7 +693,3 @@ if query:
         st.pyplot(fig)
 
 
-from PIL import Image
-# Load image
-# Display in sidebar
-st.sidebar.image("assets/avatar_open_to_work.png", caption="Sébastien MARTINET", use_container_width=True)
