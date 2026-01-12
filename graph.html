@@ -1,0 +1,164 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: rgba(0,0,0,0);
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#1f77b4", "id": 1, "label": "Hidden gauginos of an unbroken U(1): cos\u2026", "shape": "dot", "size": 10, "title": "Hidden gauginos of an unbroken U(1): cosmological constraints and phenomenological prospects\nIbarra, A.+2009\nCitations: 70\nCluster: thermal, matter, gravitino", "value": 15}, {"color": "#1f77b4", "id": 18, "label": "SO(10) SUSY GUTs, the gravitino problem,\u2026", "shape": "dot", "size": 10, "title": "SO(10) SUSY GUTs, the gravitino problem, non-thermal leptogenesis and axino dark matter\nBaer, Howard+2008\nCitations: 46\nCluster: thermal, matter, gravitino", "value": 15}, {"color": "#ff7f0e", "id": 5, "label": "First Direct Measurement of \u003cSUP\u003e12\u003c/SUP\u2026", "shape": "dot", "size": 10, "title": "First Direct Measurement of \u003cSUP\u003e12\u003c/SUP\u003eC (\u003cSUP\u003e12\u003c/SUP\u003eC,n )\u003cSUP\u003e23\u003c/SUP\u003eMg at Stellar Energies\nBucher, B.+2015\nCitations: 32\nCluster: agb, stars, process", "value": 15}, {"color": "#ff7f0e", "id": 6, "label": "Sensitivity of the \u003cSUP\u003e13\u003c/SUP\u003eC(\u03b1 ,n )\u2026", "shape": "dot", "size": 10, "title": "Sensitivity of the \u003cSUP\u003e13\u003c/SUP\u003eC(\u03b1 ,n )\u003cSUP\u003e16\u003c/SUP\u003eO S factor to the uncertainty in the level parameters of the near-threshold state\ndeBoer, R. J.+2020\nCitations: 17\nCluster: agb, stars, process", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 10, "label": "Heavy stable charged tracks as signature\u2026", "shape": "dot", "size": 10, "title": "Heavy stable charged tracks as signatures of non-thermal dark matter at the LHC: a study in some non-supersymmetric scenarios\nGhosh, Avirup+2017\nCitations: 27\nCluster: model, neutrino, dark", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 15, "label": "EFT interpretation of XENON1T electron r\u2026", "shape": "dot", "size": 10, "title": "EFT interpretation of XENON1T electron recoil excess: Neutrinos and dark matter\nArcadi, Giorgio+2021\nCitations: 26\nCluster: model, neutrino, dark", "value": 15}, {"color": "#ff7f0e", "id": 0, "label": "The intermediate neutron capture process\u2026", "shape": "dot", "size": 10, "title": "The intermediate neutron capture process. V. The i-process in AGB stars with overshoot\nChoplin, A.+2024\nCitations: 22\nCluster: agb, stars, process", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 2, "label": "Neutrino phenomenology in a 3+1+1 framew\u2026", "shape": "dot", "size": 10, "title": "Neutrino phenomenology in a 3+1+1 framework\nKuflik, Eric+2012\nCitations: 34\nCluster: model, neutrino, dark", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 3, "label": "Violations of Lorentz invariance in the \u2026", "shape": "dot", "size": 10, "title": "Violations of Lorentz invariance in the neutrino sector: an improved analysis of anomalous threshold constraints\nMaccione, Luca+2013\nCitations: 17\nCluster: model, neutrino, dark", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 4, "label": "Baryogenesis from oscillations of charme\u2026", "shape": "dot", "size": 10, "title": "Baryogenesis from oscillations of charmed or beautiful baryons\nAitken, Kyle+2017\nCitations: 54\nCluster: model, neutrino, dark", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 7, "label": "A Two-Zone Model for Type I X-Ray Bursts\u2026", "shape": "dot", "size": 10, "title": "A Two-Zone Model for Type I X-Ray Bursts on Accreting Neutron Stars\nCooper, Randall L.+2006\nCitations: 20\nCluster: model, neutrino, dark", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 8, "label": "A Numerical Study of the Thermospheric O\u2026", "shape": "dot", "size": 10, "title": "A Numerical Study of the Thermospheric Overcooling During the Recovery Phases of the October 2003 Storms\nChen, Xuetao+2018\nCitations: 22\nCluster: model, neutrino, dark", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 9, "label": "BBN for the LHC: Constraints on lifetime\u2026", "shape": "dot", "size": 10, "title": "BBN for the LHC: Constraints on lifetimes of the Higgs portal scalars\nFradette, Anthony+2017\nCitations: 104\nCluster: model, neutrino, dark", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 11, "label": "Collapsing domain walls in the two-Higgs\u2026", "shape": "dot", "size": 10, "title": "Collapsing domain walls in the two-Higgs-doublet model and deep insights from the EDM\nChen, Ning+2020\nCitations: 29\nCluster: model, neutrino, dark", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 12, "label": "Dipole portal to heavy neutral leptons", "shape": "dot", "size": 10, "title": "Dipole portal to heavy neutral leptons\nMagill, Gabriel+2018\nCitations: 161\nCluster: model, neutrino, dark", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 13, "label": "Improved determination of the astrophysi\u2026", "shape": "dot", "size": 10, "title": "Improved determination of the astrophysical S(0) factor of the N15(p,\u03b1)C12 reaction\nLa Cognata, M.+2009\nCitations: 44\nCluster: model, neutrino, dark", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 14, "label": "On the Physics of Type I X-Ray Bursts on\u2026", "shape": "dot", "size": 10, "title": "On the Physics of Type I X-Ray Bursts on Accreting Neutron Stars at High Accretion Rates\nCooper, Randall L.+2006\nCitations: 19\nCluster: model, neutrino, dark", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 16, "label": "The baryon-dark matter ratio via moduli \u2026", "shape": "dot", "size": 10, "title": "The baryon-dark matter ratio via moduli decay after Affleck-Dine baryogenesis\nKane, Gordon+2011\nCitations: 45\nCluster: model, neutrino, dark", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 17, "label": "Detonations in white dwarf dynamical int\u2026", "shape": "dot", "size": 10, "title": "Detonations in white dwarf dynamical interactions\nAznar-Sigu\u00e1n, G.+2013\nCitations: 33\nCluster: model, neutrino, dark", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 19, "label": "Positron and gamma-ray signatures of dar\u2026", "shape": "dot", "size": 10, "title": "Positron and gamma-ray signatures of dark matter annihilation and big-bang nucleosynthesis\nHisano, Junji+2009\nCitations: 72\nCluster: model, neutrino, dark", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 20, "label": "The weak scale from BBN", "shape": "dot", "size": 10, "title": "The weak scale from BBN\nHall, Lawrence J.+2014\nCitations: 48\nCluster: model, neutrino, dark", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 21, "label": "Hypertriton Production in p -Pb Collisio\u2026", "shape": "dot", "size": 10, "title": "Hypertriton Production in p -Pb Collisions at \u221a{s\u003cSUB\u003eN N\u003c/SUB\u003e }=5.02 TeV\nAcharya, S.+2022\nCitations: 31\nCluster: model, neutrino, dark", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 22, "label": "Discovery of \u003cSUP\u003e72\u003c/SUP\u003eRb: A Nuclear \u2026", "shape": "dot", "size": 10, "title": "Discovery of \u003cSUP\u003e72\u003c/SUP\u003eRb: A Nuclear Sandbank Beyond the Proton Drip Line\nSuzuki, H.+2017\nCitations: 28\nCluster: model, neutrino, dark", "value": 15}, {"color": "#1f77b4", "id": 23, "label": "Supersymmetric thermalization and quasi-\u2026", "shape": "dot", "size": 10, "title": "Supersymmetric thermalization and quasi-thermal Universe: consequences for gravitinos and leptogenesis\nAllahverdi, Rouzbeh+2006\nCitations: 85\nCluster: thermal, matter, gravitino", "value": 15}, {"color": "rgba(150,150,150,0.4)", "id": 24, "label": "Search for heavy neutral lepton producti\u2026", "shape": "dot", "size": 10, "title": "Search for heavy neutral lepton production in K\u003cSUP\u003e+\u003c/SUP\u003e decays to positrons\nCortina Gil, E.+2020\nCitations: 42\nCluster: model, neutrino, dark", "value": 15}]);
+                  edges = new vis.DataSet([{"color": "#cccccc", "from": 1, "title": "Sim=0.75", "to": 18, "width": 3}, {"color": "#cccccc", "from": 5, "title": "Sim=0.77", "to": 6, "width": 3}, {"color": "#cccccc", "from": 10, "title": "Sim=0.70", "to": 15, "width": 3}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.01,
+            "damping": 0.4,
+            "gravitationalConstant": -30,
+            "springConstant": 0.08,
+            "springLength": 140
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
