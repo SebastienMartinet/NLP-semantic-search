@@ -20,16 +20,16 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+from PIL import Image
+# Load image
+# Display in sidebar
+st.sidebar.image("assets/avatar_open_to_work.png", caption="Sébastien MARTINET", use_container_width=True)
+
 # -----------------------------
 # Load dataset
 # -----------------------------
 st.title("Astrophysics Abstract Search")
 data, texts = load_abstracts()
-
-from PIL import Image
-# Load image
-# Display in sidebar
-st.sidebar.image("assets/avatar_open_to_work.png", caption="Sébastien MARTINET", use_container_width=True)
 
 # -----------------------------
 # Sidebar: select retrieval method
@@ -691,5 +691,4 @@ if query:
         ax.set_ylabel("Hybrid score")
         ax.legend()
         st.pyplot(fig)
-
 
