@@ -674,21 +674,21 @@ if query:
                 )
 
         st.markdown("---")
-    if method == "Hybrid":
-        sem_scores, citation_scores = [], []
-        for i in idx:
-            sem_scores.append(hybrid_model.semantic.embeddings[i])
-            citation_scores.append(hybrid_model.citations[i])
-        sem_norm = np.array([np.linalg.norm(e) for e in sem_scores])
-        citation_norm = np.array(citation_scores[:top_k])
-        hybrid_scores = alpha*sem_norm + (1-alpha)*citation_norm
-        st.write("### Hybrid Score Decomposition")
-        fig, ax = plt.subplots(figsize=(8,4))
-        ax.bar(range(top_k), sem_norm, label="Semantic")
-        ax.bar(range(top_k), (1-alpha)*citation_norm, bottom=alpha*sem_norm, label="Citations")
-        ax.set_xticks(range(top_k))
-        ax.set_xticklabels([r["title"][:20]+"..." for r in top_results], rotation=45, ha='right')
-        ax.set_ylabel("Hybrid score")
-        ax.legend()
-        st.pyplot(fig)
+    # if method == "Hybrid":
+    #     sem_scores, citation_scores = [], []
+    #     for i in idx:
+    #         sem_scores.append(hybrid_model.semantic.embeddings[i])
+    #         citation_scores.append(hybrid_model.citations[i])
+    #     sem_norm = np.array([np.linalg.norm(e) for e in sem_scores])
+    #     citation_norm = np.array(citation_scores[:top_k])
+    #     hybrid_scores = alpha*sem_norm + (1-alpha)*citation_norm
+    #     st.write("### Hybrid Score Decomposition")
+    #     fig, ax = plt.subplots(figsize=(8,4))
+    #     ax.bar(range(top_k), sem_norm, label="Semantic")
+    #     ax.bar(range(top_k), (1-alpha)*citation_norm, bottom=alpha*sem_norm, label="Citations")
+    #     ax.set_xticks(range(top_k))
+    #     ax.set_xticklabels([r["title"][:20]+"..." for r in top_results], rotation=45, ha='right')
+    #     ax.set_ylabel("Hybrid score")
+    #     ax.legend()
+    #     st.pyplot(fig)
 
