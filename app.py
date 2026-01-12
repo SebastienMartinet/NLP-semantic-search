@@ -400,7 +400,7 @@ elif method == "BERT":
 # -----------------------------
 # User input
 # -----------------------------
-query = st.text_input("Enter your query:")
+query = st.text_input("Enter your query:",placeholder="e.g. Machine Learning")
 
 if query:
     if method == "TF-IDF":
