@@ -687,3 +687,8 @@ if query:
         ax.legend()
         st.pyplot(fig)
 
+
+from PIL import Image
+# Load image
+# Display in sidebar
+st.sidebar.image("assets/avatar_open_to_work.png", caption="Sébastien MARTINET", use_container_width=True)
