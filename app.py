@@ -637,7 +637,7 @@ if query:
 
         with st.expander("ⓘ"):
 #             st.markdown(
-#     """
+#     """F
 #     <style>
 #     /* Expander header text */
 #     div[data-testid="stExpander"] > details > summary {
@@ -667,7 +667,6 @@ if query:
                 )
                 for sent, score in expl:
                     st.write(f"• *{sent}*  \n  Similarity: `{score:.2f}`")
-
             elif method == "Hybrid":
                 scores = explain_hybrid(hybrid_model, i)
                 st.write(
@@ -675,7 +674,17 @@ if query:
                     f"Citations: `{scores['citations']}` | "
                     f"Final: `{scores['hybrid']:.2f}`"
                 )
+                st.write("**Semantic relevance**")
+                expl = explain_semantic(
+                    semantic_model.model,
+                    query,
+                    d["abstract"]
+                )
+                for sent, score in expl:
+                    st.write(f"• *{sent}*  \n  Similarity: `{score:.2f}`")
 
+                st.progress(scores["semantic"], text="Semantic relevance")
+                st.progress(scores["citations"], text="Citation influence")
         st.markdown("---")
     # if method == "Hybrid":
     #     sem_scores, citation_scores = [], []
