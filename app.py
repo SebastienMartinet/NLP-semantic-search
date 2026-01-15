@@ -627,7 +627,7 @@ if query:
         d = data[i]
 
         st.markdown(f"**{rank}. {d['title']}**")
-        st.caption(f"{first_author(d)} et al., {d['year']}")
+        st.caption(f"{first_author(d)} et al., {d['year']} (Citations: {d['citations']})")
         ads_pdf, ads_page = ads_link(d)
         st.markdown(
     f"[View ADS]({ads_page}) &nbsp;|&nbsp; [View PDF]({ads_pdf})",
