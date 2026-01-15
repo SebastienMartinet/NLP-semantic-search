@@ -669,9 +669,11 @@ if query:
                     st.write(f"• *{sent}*  \n  Similarity: `{score:.2f}`")
             elif method == "Hybrid":
                 scores = explain_hybrid(hybrid_model, i)
+                st.progress(alpha*scores["semantic"], text="Semantic relevance")
+                st.progress((1-alpha)*scores["citations"], text="Citation influence")
                 st.write(
-                    f"Semantic: `{scores['semantic']:.2f}` | "
-                    f"Citations: `{scores['citations']}` | "
+                    f"Semantic: `{alpha*scores['semantic']:.2f}` | "
+                    f"Citations: `{(1-alpha)*scores['citations']}` | "
                     f"Final: `{scores['hybrid']:.2f}`"
                 )
                 st.write("**Semantic relevance**")
@@ -683,8 +685,6 @@ if query:
                 for sent, score in expl:
                     st.write(f"• *{sent}*  \n  Similarity: `{score:.2f}`")
 
-                st.progress(scores["semantic"], text="Semantic relevance")
-                st.progress(scores["citations"], text="Citation influence")
         st.markdown("---")
     # if method == "Hybrid":
     #     sem_scores, citation_scores = [], []
