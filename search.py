@@ -104,15 +104,19 @@ class HybridSearch:
         # semantic similarity
         sem_scores = self.semantic.similarity(query)
 
-        # normalize (NumPy 2.0 safe)
+        # semantic normalization (NumPy 2.0 safe)
         sem_range = np.ptp(sem_scores)
-        cit_range = np.ptp(self.citations)
-
         sem_norm = (sem_scores - sem_scores.min()) / (sem_range + 1e-8)
-        cit_norm = (self.citations - self.citations.min()) / (cit_range + 1e-8)
 
+        # citation normalization (log-scaled)
+        cit_log = np.log1p(self.citations)
+        cit_range = np.ptp(cit_log)
+        cit_norm = (cit_log - cit_log.min()) / (cit_range + 1e-8)
+
+        # hybrid score
         hybrid_scores = self.alpha * sem_norm + (1 - self.alpha) * cit_norm
 
+        # ranking
         idx = np.argsort(-hybrid_scores)[:top_k]
 
         # explainability buffers
@@ -121,6 +125,7 @@ class HybridSearch:
         self.last_hybrid_scores = hybrid_scores
 
         return idx.tolist(), hybrid_scores[idx]
+
 
 
 # -----------------------------
