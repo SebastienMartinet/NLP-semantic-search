@@ -676,7 +676,7 @@ if query:
                 st.progress((1-alpha)*scores["citations"], text="Citation influence")
                 st.write(
                     f"Semantic: `{alpha*scores['semantic']:.2f}` | "
-                    f"Citations: `{(1-alpha)*scores['citations']}` | "
+                    f"Citations: `{(1-alpha)*scores['citations']:3f}` | "
                     f"Final: `{scores['hybrid']:.2f}`"
                 )
                 st.write("**Semantic relevance**")
