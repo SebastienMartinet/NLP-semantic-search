@@ -634,8 +634,11 @@ if query:
     unsafe_allow_html=True
 )
         st.write(d["abstract"][:500] + "…")
-
-        with st.expander("ⓘ"):
+        if i ==1:
+            expanded_status=True
+        else:
+            expanded_status=False
+        with st.expander("ⓘ",expanded=expanded_status):
 #             st.markdown(
 #     """F
 #     <style>
