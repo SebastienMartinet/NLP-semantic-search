@@ -634,7 +634,7 @@ if query:
     unsafe_allow_html=True
 )
         st.write(d["abstract"][:500] + "…")
-        if i ==1:
+        if rank ==1:
             expanded_status=True
         else:
             expanded_status=False
